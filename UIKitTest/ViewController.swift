@@ -15,18 +15,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.picker.center = self.view.center
-        self.picker.datePickerMode = .date
+        self.picker.datePickerMode = .countDownTimer
         self.picker.addTarget(self, action: #selector(datePickerChange), for: .valueChanged)
         
-        var oneYear = TimeInterval()
-        oneYear = 365 * 24 * 60 * 60
-        
-        let todayDate = Date()
-        let oneYearFromToday = todayDate.addingTimeInterval(oneYear)
-        let twoYearsFromToday = todayDate.addingTimeInterval(2 * oneYear )
-        
-        self.picker.minimumDate = oneYearFromToday
-        self.picker.maximumDate = twoYearsFromToday
+        self.picker.countDownDuration = 2 * 60
         
         self.view.addSubview(self.picker)
     }
