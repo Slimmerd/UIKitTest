@@ -9,34 +9,42 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var welcomeLabel: UILabel!
+    let mySwitch: UISwitch = UISwitch()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+//        Created switch button
+        self.mySwitch.frame = CGRect(x: 100, y: 100, width: 0, height: 0)
+        self.view.addSubview(self.mySwitch)
+        
+//        Turned on by default
+        self.mySwitch.setOn(true, animated: true)
+        
+//        Prints switch state on init
+        if self.mySwitch.isOn {
+            print("switch is ON")
+        } else {
+            print("switch is OFF")
+        }
+        
+        
+//        Adding observer
+        self.mySwitch.addTarget(self, action: #selector(handleSwitchChange(paramTarget:)), for: .valueChanged)
+    }
+    
+//    Func that prints switch state
+    @objc func handleSwitchChange(paramTarget: UISwitch) {
+        print(paramTarget)
+        
+        if self.mySwitch.isOn {
+            print("switch is ON")
+        } else {
+            print("switch is OFF")
+        }
     }
 
-    @IBAction func showButton(_ sender: Any) {
-        
-        self.welcomeLabel.text = "Hi,"
-        self.alert(title: "Who are you", message: "Huh?", style: .alert)
-    }
-    
-//    MARK: - Better implementation
-    
-    func alert(title: String, message: String, style: UIAlertController.Style) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
-        let action = UIAlertAction(title: "kok", style: .default) { action in
-            let text = alertController.textFields?.first?.text
-            self.welcomeLabel.text! += text!
-        }
-        
-        alertController.addTextField { textField in
-            textField.isSecureTextEntry = true
-        }
-        alertController.addAction(action)
-        self.present(alertController, animated: true, completion: nil)
-    }
+  
     
 }
 
