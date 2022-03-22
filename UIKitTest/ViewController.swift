@@ -9,48 +9,43 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let mySwitch: UISwitch = UISwitch()
-    let myButton: UIButton = UIButton()
+    let picker: UIPickerView = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        MARK: - Standard Button
         
-        self.myButton.frame = CGRect(x: 100, y: 200, width: 200, height: 100)
-        self.myButton.backgroundColor = UIColor.magenta
-        self.myButton.setTitle("Touch me", for: .normal)
-        self.myButton.setTitle("Button touched", for: .highlighted)
+        self.picker.center = self.view.center
         
-        self.view.addSubview(self.myButton)
+//        Subscribe
+        self.picker.dataSource = self
+        self.picker.delegate = self
         
-//        MARK: - Switch button
-        self.mySwitch.frame = CGRect.zero
-        self.mySwitch.center = self.view.center // Set position of switch to the center of the screen
-        
-//        Style of off button
-        self.mySwitch.tintColor = UIColor.brown
-        
-//        Style of on button
-        self.mySwitch.onTintColor = UIColor.gray
-        
-//        Lever style
-        self.mySwitch.thumbTintColor = UIColor.cyan
-        
-//        Add interaction with switch
-        self.mySwitch.addTarget(self, action: #selector(enableButton(target:)), for: .valueChanged)
-        
-        self.view.addSubview(self.mySwitch)
-    }
-    
-    @objc func enableButton(target: UISwitch) {
-        if target.isOn {
-            self.myButton.isUserInteractionEnabled = true
-        } else {
-            self.myButton.isUserInteractionEnabled = false
-        }
+        self.view.addSubview(self.picker)
     }
 
   
     
 }
 
+extension ViewController: UIPickerViewDataSource {
+    
+//    Amount of columns
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+//    Amount of rows
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 10
+    }
+    
+}
+
+extension ViewController: UIPickerViewDelegate {
+    
+    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let result = "row = \(row)"
+        
+        return result
+    }
+}
