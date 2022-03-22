@@ -10,37 +10,43 @@ import UIKit
 class ViewController: UIViewController {
 
     let mySwitch: UISwitch = UISwitch()
+    let myButton: UIButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        MARK: - Standard Button
         
-//        Created switch button
-        self.mySwitch.frame = CGRect(x: 100, y: 100, width: 0, height: 0)
+        self.myButton.frame = CGRect(x: 100, y: 200, width: 200, height: 100)
+        self.myButton.backgroundColor = UIColor.magenta
+        self.myButton.setTitle("Touch me", for: .normal)
+        self.myButton.setTitle("Button touched", for: .highlighted)
+        
+        self.view.addSubview(self.myButton)
+        
+//        MARK: - Switch button
+        self.mySwitch.frame = CGRect.zero
+        self.mySwitch.center = self.view.center // Set position of switch to the center of the screen
+        
+//        Style of off button
+        self.mySwitch.tintColor = UIColor.brown
+        
+//        Style of on button
+        self.mySwitch.onTintColor = UIColor.gray
+        
+//        Lever style
+        self.mySwitch.thumbTintColor = UIColor.cyan
+        
+//        Add interaction with switch
+        self.mySwitch.addTarget(self, action: #selector(enableButton(target:)), for: .valueChanged)
+        
         self.view.addSubview(self.mySwitch)
-        
-//        Turned on by default
-        self.mySwitch.setOn(true, animated: true)
-        
-//        Prints switch state on init
-        if self.mySwitch.isOn {
-            print("switch is ON")
-        } else {
-            print("switch is OFF")
-        }
-        
-        
-//        Adding observer
-        self.mySwitch.addTarget(self, action: #selector(handleSwitchChange(paramTarget:)), for: .valueChanged)
     }
     
-//    Func that prints switch state
-    @objc func handleSwitchChange(paramTarget: UISwitch) {
-        print(paramTarget)
-        
-        if self.mySwitch.isOn {
-            print("switch is ON")
+    @objc func enableButton(target: UISwitch) {
+        if target.isOn {
+            self.myButton.isUserInteractionEnabled = true
         } else {
-            print("switch is OFF")
+            self.myButton.isUserInteractionEnabled = false
         }
     }
 
