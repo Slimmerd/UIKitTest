@@ -8,41 +8,63 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
-    var segmentController: UISegmentedControl = UISegmentedControl()
-    let menuArray: Array<String> = ["test1", "test2", "test3"]
-    
-    var imageView: UIImageView = UIImageView()
-    let imageArray: Array<UIImage?> = [UIImage(named: "kekw.png"), UIImage(named: "loln.png"), UIImage(named: "kekw.png")]
+    var buttonShare = UIButton()
+    var textField = UITextField()
+    var activityViewController: UIActivityViewController? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-//        image
-        self.imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-        self.imageView.center = self.view.center
-        self.imageView.image = self.imageArray[0]
-        self.view.addSubview(self.imageView)
-        
-//        create segment
-        self.segmentController = UISegmentedControl(items: self.menuArray)
-        self.segmentController.frame = CGRect(x: 80, y: 600, width: 200, height: 30)
-        
-        self.segmentController.addTarget(self, action: #selector(selectImage(target:)), for: .valueChanged)
-        
-        self.view.addSubview(self.segmentController)
+        self.createTextField()
+        self.createButton()
     }
     
+//    MARK: - Method
+    func createTextField() {
+        self.textField.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
+        self.textField.center = self.view.center
+        self.textField.borderStyle = UITextField.BorderStyle.roundedRect
+        self.textField.placeholder = "Enter text to share"
+        self.textField.delegate = self
+        self.view.addSubview(self.textField)
+    }
     
-    @objc func selectImage(target: UISegmentedControl) {
-        if target == self.segmentController {
-            let segmentIndex = target.selectedSegmentIndex
+    func createButton() {
+        self.buttonShare = UIButton(type: .roundedRect)
+        self.buttonShare.frame = CGRect(x: 50, y: 350, width: 280, height: 44)
+        self.buttonShare.setTitle("Expand", for: .normal)
+        
+        self.buttonShare.addTarget(self, action: #selector(buttonShareAction(target:)), for: .touchUpInside)
+        self.view.addSubview(self.buttonShare)
+    }
+    
+    @objc func buttonShareAction(target: UIButton) {
+        let text = self.textField.text
+        
+        if text?.count == 0 {
+            let message = "Write some text before share"
             
-            self.imageView.image = self.imageArray[segmentIndex]
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "ok", style: .cancel, handler: nil)
+            
+            alertController.addAction(action)
+            self.present(alertController, animated: true, completion: nil)
         }
+        
+        self.activityViewController = UIActivityViewController(activityItems: [self.textField.text ?? "nil"], applicationActivities: nil)
+        self.present(self.activityViewController!, animated: true, completion: nil)
     }
+    
+//    MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.textField.resignFirstResponder()
+        
+        return true
+    }
+    
 
     
 }
