@@ -9,43 +9,33 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let picker: UIPickerView = UIPickerView()
+    let picker: UIDatePicker = UIDatePicker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.picker.center = self.view.center
+        self.picker.datePickerMode = .date
+        self.picker.addTarget(self, action: #selector(datePickerChange), for: .valueChanged)
         
-//        Subscribe
-        self.picker.dataSource = self
-        self.picker.delegate = self
+        var oneYear = TimeInterval()
+        oneYear = 365 * 24 * 60 * 60
+        
+        let todayDate = Date()
+        let oneYearFromToday = todayDate.addingTimeInterval(oneYear)
+        let twoYearsFromToday = todayDate.addingTimeInterval(2 * oneYear )
+        
+        self.picker.minimumDate = oneYearFromToday
+        self.picker.maximumDate = twoYearsFromToday
         
         self.view.addSubview(self.picker)
     }
 
-  
     
-}
-
-extension ViewController: UIPickerViewDataSource {
-    
-//    Amount of columns
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+    @objc func datePickerChange(target: UIDatePicker) {
+        if target.isEqual(self.picker) {
+            print("newDate = \(target.date)")
+        }
     }
     
-//    Amount of rows
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 10
-    }
-    
-}
-
-extension ViewController: UIPickerViewDelegate {
-    
-    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let result = "row = \(row)"
-        
-        return result
-    }
 }
