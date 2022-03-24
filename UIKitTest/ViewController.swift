@@ -6,65 +6,30 @@
 //
 
 import UIKit
-import AVFoundation
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {
     
-    var buttonShare = UIButton()
-    var textField = UITextField()
-    var activityViewController: UIActivityViewController? = nil
+    var showSecondScreen = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.createTextField()
-        self.createButton()
-    }
-    
-//    MARK: - Method
-    func createTextField() {
-        self.textField.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
-        self.textField.center = self.view.center
-        self.textField.borderStyle = UITextField.BorderStyle.roundedRect
-        self.textField.placeholder = "Enter text to share"
-        self.textField.delegate = self
-        self.view.addSubview(self.textField)
-    }
-    
-    func createButton() {
-        self.buttonShare = UIButton(type: .roundedRect)
-        self.buttonShare.frame = CGRect(x: 50, y: 350, width: 280, height: 44)
-        self.buttonShare.setTitle("Expand", for: .normal)
+        self.title = "FirstVC"
         
-        self.buttonShare.addTarget(self, action: #selector(buttonShareAction(target:)), for: .touchUpInside)
-        self.view.addSubview(self.buttonShare)
+        self.showSecondScreen = UIButton(type: .system)
+        self.showSecondScreen.setTitle("SecondVC", for: .normal)
+        self.showSecondScreen.sizeToFit()
+        self.showSecondScreen.center = self.view.center
+        self.showSecondScreen.addTarget(self, action: #selector(changeDisplay(target:)), for: .touchUpInside)
+        
+        self.view.addSubview(self.showSecondScreen)
     }
     
-    @objc func buttonShareAction(target: UIButton) {
-        let text = self.textField.text
-        
-        if text?.count == 0 {
-            let message = "Write some text before share"
-            
-            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "ok", style: .cancel, handler: nil)
-            
-            alertController.addAction(action)
-            self.present(alertController, animated: true, completion: nil)
-        }
-        
-        self.activityViewController = UIActivityViewController(activityItems: [self.textField.text ?? "nil"], applicationActivities: nil)
-        self.present(self.activityViewController!, animated: true, completion: nil)
+    @objc func changeDisplay(target: Any) {
+        let secondVC = SecondViewController()
+        self.navigationController?.pushViewController(secondVC, animated: true)
     }
-    
-//    MARK: - UITextFieldDelegate
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.textField.resignFirstResponder()
-        
-        return true
-    }
-    
 
     
+
 }
