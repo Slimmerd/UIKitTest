@@ -15,7 +15,7 @@
 		070F453227E94149008DEF4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 070F453027E94149008DEF4F /* LaunchScreen.storyboard */; };
 		0735078227EA7FF300B8EEF0 /* kekw.png in Resources */ = {isa = PBXBuildFile; fileRef = 0735078027EA7FF300B8EEF0 /* kekw.png */; };
 		0735078327EA7FF300B8EEF0 /* loln.png in Resources */ = {isa = PBXBuildFile; fileRef = 0735078127EA7FF300B8EEF0 /* loln.png */; };
-		0735078527ECAD2200B8EEF0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0735078427ECAD2200B8EEF0 /* SecondViewController.swift */; };
+		0735078727ECF65600B8EEF0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0735078627ECF65600B8EEF0 /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		070F453327E94149008DEF4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0735078027EA7FF300B8EEF0 /* kekw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kekw.png; sourceTree = "<group>"; };
 		0735078127EA7FF300B8EEF0 /* loln.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loln.png; sourceTree = "<group>"; };
-		0735078427ECAD2200B8EEF0 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		0735078627ECF65600B8EEF0 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +64,8 @@
 			children = (
 				070F452527E94142008DEF4F /* AppDelegate.swift */,
 				070F452727E94142008DEF4F /* SceneDelegate.swift */,
+				0735078627ECF65600B8EEF0 /* SecondViewController.swift */,
 				070F452927E94142008DEF4F /* ViewController.swift */,
-				0735078427ECAD2200B8EEF0 /* SecondViewController.swift */,
 				070F452B27E94143008DEF4F /* Main.storyboard */,
 				0735078027EA7FF300B8EEF0 /* kekw.png */,
 				0735078127EA7FF300B8EEF0 /* loln.png */,
@@ -149,7 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0735078527ECAD2200B8EEF0 /* SecondViewController.swift in Sources */,
+				0735078727ECF65600B8EEF0 /* SecondViewController.swift in Sources */,
 				070F452A27E94142008DEF4F /* ViewController.swift in Sources */,
 				070F452627E94142008DEF4F /* AppDelegate.swift in Sources */,
 				070F452827E94142008DEF4F /* SceneDelegate.swift in Sources */,

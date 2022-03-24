@@ -9,25 +9,21 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var showSecondScreen = UIButton()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "FirstVC"
+//        self.title = "FirstVC"
+        self.navigationItem.title = "FirstVC"
         
-        self.showSecondScreen = UIButton(type: .system)
-        self.showSecondScreen.setTitle("SecondVC", for: .normal)
-        self.showSecondScreen.sizeToFit()
-        self.showSecondScreen.center = self.view.center
-        self.showSecondScreen.addTarget(self, action: #selector(changeDisplay(target:)), for: .touchUpInside)
+        var tabBarItem = UITabBarItem()
+        tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
         
-        self.view.addSubview(self.showSecondScreen)
-    }
-    
-    @objc func changeDisplay(target: Any) {
-        let secondVC = SecondViewController()
-        self.navigationController?.pushViewController(secondVC, animated: true)
+        self.tabBarItem = tabBarItem
+        self.view.backgroundColor = UIColor.cyan
+        
+      
     }
 
     

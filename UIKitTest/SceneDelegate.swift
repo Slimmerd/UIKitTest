@@ -19,17 +19,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         
-        if let windowsScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowsScene)
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            let firstVC = ViewController()
+            let secondVC = SecondViewController()
             
-            let viewController = ViewController()
-            let navController = UINavigationController(rootViewController: viewController)
+                // Navigation
+            let firstNavController = UINavigationController(rootViewController: firstVC)
+            let secondNavController = UINavigationController(rootViewController: secondVC)
             
-            window.rootViewController = navController
+            let tabBarVC = UITabBarController()
+            tabBarVC.setViewControllers([firstNavController, secondNavController], animated: true)
+            
+            window.rootViewController = tabBarVC
+            window.backgroundColor = .white
+            
+                // Preload title, tabBarItem from SecondViewController
+            secondVC.loadViewIfNeeded()
             
             self.window = window
-            
-            window.backgroundColor = UIColor.white
             window.makeKeyAndVisible()
         }
     }
