@@ -18,28 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            let firstVC = ViewController()
-            let secondVC = SecondViewController()
-            
-                // Navigation
-            let firstNavController = UINavigationController(rootViewController: firstVC)
-            let secondNavController = UINavigationController(rootViewController: secondVC)
-            
-            let tabBarVC = UITabBarController()
-            tabBarVC.setViewControllers([firstNavController, secondNavController], animated: true)
-            
-            window.rootViewController = tabBarVC
-            window.backgroundColor = .white
-            
-                // Preload title, tabBarItem from SecondViewController
-            secondVC.loadViewIfNeeded()
-            
-            self.window = window
-            window.makeKeyAndVisible()
-        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

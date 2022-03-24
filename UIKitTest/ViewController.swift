@@ -10,19 +10,29 @@ import UIKit
 class ViewController: UIViewController {
     
 
-
+    let myLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.title = "FirstVC"
-        self.navigationItem.title = "FirstVC"
         
-        var tabBarItem = UITabBarItem()
-        tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
+        let labelFrame = CGRect(x: 0, y: 0, width: 100, height: 50)
         
-        self.tabBarItem = tabBarItem
-        self.view.backgroundColor = UIColor.cyan
+        self.myLabel.frame = labelFrame
+        self.myLabel.numberOfLines = 0
+        self.myLabel.lineBreakMode = .byWordWrapping
+        self.myLabel.text = "Hello, I'm under the water, help me"
+        self.myLabel.adjustsFontSizeToFitWidth = true
+        self.myLabel.sizeToFit()
         
+        self.myLabel.textColor = UIColor.red
+        self.myLabel.shadowColor = UIColor.brown
+        self.myLabel.shadowOffset = CGSize(width: 2, height: 2)
+        
+        self.myLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        self.myLabel.center = self.view.center
+        
+        self.view.addSubview(myLabel)
       
     }
 
