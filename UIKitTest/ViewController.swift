@@ -9,38 +9,24 @@ import UIKit
 
 class ViewController: UIViewController {
     
-
-    var myButton = UIButton()
-    let normalImage = UIImage(named: "kekw")
-    let highlightedImage = UIImage(named: "loln")
     
+    var myImageView = UIImageView()
+    let myImage = UIImage(named: "kekw")
     
-    override func viewDidLoad() {
+     override func viewDidLoad() {
         super.viewDidLoad()
     
-        self.myButton = UIButton(type: .roundedRect)
-        self.myButton.frame = CGRect(x: 110, y: 200, width: 100, height: 100)
-        self.myButton.setTitle("touche me", for: .normal)
-        self.myButton.setTitle("You touched me", for: .highlighted)
-        
-        
-        self.myButton.addTarget(self, action: #selector(buttonIsPressed(sender:)), for: .touchDown)
-        self.myButton.addTarget(self, action: #selector(buttonIsTapped(sender:)), for: .touchUpInside)
-        
-        self.myButton.setBackgroundImage(normalImage, for: .normal)
-        self.myButton.setBackgroundImage(highlightedImage, for: .highlighted)
-        
-        self.view.addSubview(self.myButton)
-       
+   
+//         self.myImageView = UIImageView(image: myImage)
+         self.myImageView = UIImageView(frame: self.view.bounds)
+         
+         self.myImageView.contentMode = .scaleAspectFit
+         
+         self.myImageView.image = self.myImage
+         self.myImageView.center = self.view.center
+         
+         self.view.addSubview(self.myImageView)
     }
     
-  
-    @objc func buttonIsPressed(sender: UIButton) {
-        print("Button pressed")
-    }
-    
-    @objc func buttonIsTapped(sender: UIButton) {
-        print("Buttin is tapped")
-    }
     
 }
