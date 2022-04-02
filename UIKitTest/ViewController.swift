@@ -7,87 +7,56 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {
     
 
-    var myTextField = UITextField()
+    var myTextView = UITextView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTextView), name: UIResponder.keyboardDidShowNotification, object: nil)
         
-        self.createTextField()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(param:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        self.myTextField.delegate = self
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidChange), name: UITextField.textDidChangeNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) {
-            (nc) in
-            self.view.frame.origin.y = -200
-        }
-        
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) {
-            (nc) in
-            self.view.frame.origin.y = 0.0
-        }
-      
+        self.createTextView()
+       
+    }
+    
+    
+    func createTextView() {
+        myTextView = UITextView(frame: CGRect(x: 20, y: 100, width: self.view.bounds.width - 40, height: self.view.bounds.height / 2))
+        myTextView.text = "Some text in text view"
+        myTextView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
+        myTextView.font = UIFont.systemFont(ofSize: 17)
+        myTextView.backgroundColor = .gray
+        self.view.addSubview(self.myTextView)
     }
 
-//    MARK: Create UI
-    func createTextField() {
-        let textFieldFrame = CGRect(x: 0, y: 0, width: 200, height: 30)
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.myTextView.resignFirstResponder()
+        self.myTextView.backgroundColor = .cyan
+    }
+    
+    @objc func updateTextView(param: Notification) {
+        let userINfo = param.userInfo
         
-        self.myTextField = UITextField(frame: textFieldFrame)
-        self.myTextField.borderStyle = UITextField.BorderStyle.roundedRect
-        self.myTextField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-        self.myTextField.textAlignment = .center
-        self.myTextField.placeholder = "Test placeholder"
-        self.myTextField.center = self.view.center
+        let getKeyboardRect = (userINfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
-        self.view.addSubview(self.myTextField)
-    }
-    
-//    MARK: Notification
-    @objc func textFieldDidChange(ncParam: NSNotification) {
-        print("didChange = \(ncParam)")
-    }
-    
-// MARK: TextFieldDelegate
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print("can I edit this field?")
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("Started editing field")
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        print("Can I finish editing?")
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print("Finished editing ")
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        print("Your input \(string)")
-  
-        return true
-    }
-    
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        print("You deleted some")
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("Close keyboard?")
-        if textField == myTextField{
-            self.myTextField.resignFirstResponder()
+        let keyboardFrame = self.view.convert(getKeyboardRect, to: view.window)
+        
+        if param.name == UIResponder.keyboardWillHideNotification {
+            self.myTextView.contentInset = UIEdgeInsets.zero
+        } else {
+            self.myTextView.contentInset = UIEdgeInsets(top: 0,left: 0, bottom: keyboardFrame.height, right: 0)
+            self.myTextView.scrollIndicatorInsets = self.myTextView.contentInset
         }
-        return true
+        
+        self.myTextView.scrollRangeToVisible(myTextView.selectedRange)
+        
+        
+
     }
+    
 }
