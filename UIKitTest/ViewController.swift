@@ -10,53 +10,37 @@ import UIKit
 class ViewController: UIViewController {
     
 
-    var myTextView = UITextView()
+    var myButton = UIButton()
+    let normalImage = UIImage(named: "kekw")
+    let highlightedImage = UIImage(named: "loln")
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTextView), name: UIResponder.keyboardDidShowNotification, object: nil)
+        self.myButton = UIButton(type: .roundedRect)
+        self.myButton.frame = CGRect(x: 110, y: 200, width: 100, height: 100)
+        self.myButton.setTitle("touche me", for: .normal)
+        self.myButton.setTitle("You touched me", for: .highlighted)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(param:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        self.createTextView()
+        self.myButton.addTarget(self, action: #selector(buttonIsPressed(sender:)), for: .touchDown)
+        self.myButton.addTarget(self, action: #selector(buttonIsTapped(sender:)), for: .touchUpInside)
+        
+        self.myButton.setBackgroundImage(normalImage, for: .normal)
+        self.myButton.setBackgroundImage(highlightedImage, for: .highlighted)
+        
+        self.view.addSubview(self.myButton)
        
     }
     
-    
-    func createTextView() {
-        myTextView = UITextView(frame: CGRect(x: 20, y: 100, width: self.view.bounds.width - 40, height: self.view.bounds.height / 2))
-        myTextView.text = "Some text in text view"
-        myTextView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
-        myTextView.font = UIFont.systemFont(ofSize: 17)
-        myTextView.backgroundColor = .gray
-        self.view.addSubview(self.myTextView)
-    }
-
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.myTextView.resignFirstResponder()
-        self.myTextView.backgroundColor = .cyan
+  
+    @objc func buttonIsPressed(sender: UIButton) {
+        print("Button pressed")
     }
     
-    @objc func updateTextView(param: Notification) {
-        let userINfo = param.userInfo
-        
-        let getKeyboardRect = (userINfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        
-        let keyboardFrame = self.view.convert(getKeyboardRect, to: view.window)
-        
-        if param.name == UIResponder.keyboardWillHideNotification {
-            self.myTextView.contentInset = UIEdgeInsets.zero
-        } else {
-            self.myTextView.contentInset = UIEdgeInsets(top: 0,left: 0, bottom: keyboardFrame.height, right: 0)
-            self.myTextView.scrollIndicatorInsets = self.myTextView.contentInset
-        }
-        
-        self.myTextView.scrollRangeToVisible(myTextView.selectedRange)
-        
-        
-
+    @objc func buttonIsTapped(sender: UIButton) {
+        print("Buttin is tapped")
     }
     
 }
